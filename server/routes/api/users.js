@@ -9,6 +9,6 @@ router.get('/', usersApicontroller.index)
 router.get('/',() => {});
 
 // api/users/signup
-router.get('/',() => {})
+router.post('signup/',usersApicontroller.signup);
 
 module.exports = router;
