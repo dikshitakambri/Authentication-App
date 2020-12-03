@@ -6,7 +6,7 @@ const usersApicontroller = require('../../controller/api/usersApi');
 router.get('/', usersApicontroller.index)
 
 // /api/users/login
-router.get('/',() => {});
+router.get('/login',usersApicontroller.login);
 
 // api/users/signup
 router.post('signup/',usersApicontroller.signup);

@@ -60,7 +60,42 @@ async function signup(req, res){
         });
     }
 }
+async function login (req, res){
+    const {password, email} = req.body;
+
+    try {
+        const User = await User.findOne({email:email});
+
+        if(!User){
+            return res.status(500).json({
+                error: "Invalid email or password"
+            });
+        }
+
+        const payloadForjwt = {
+            id:User.id,
+            name:User.name,
+            email:User.email
+        }
+
+        const JWT_SECRET = 'secret';
+
+        const jsonData = {
+            token : JWT_SECRET.sign(payloadForjwt, JWT_SECRET, {expireIn:'2 days'}),
+            message:'signed in successfully',
+            success: true
+        }
+        return res.status(200).json(jsonData);
+    }catch(error){
+        console.log('login -> error',error);
+        return res.status(500).json({
+            error:error
+        });
+
+    }
+}
 module.exports={
     index,
-    signup
+    signup,
+    login
 }
